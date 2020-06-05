@@ -24,36 +24,7 @@ public class ArController {
     private Context context;
 
     public ArController(ArFragment viewer){
-
         arFragment = viewer;
-    }
-
-    public void setPlateModel(ArPlateModel plateModel) {
-        this.plateModel = plateModel;
-    }
-
-    public void draw() {
-        arFragment.getPlaneDiscoveryController().hide();
-        arFragment.getPlaneDiscoveryController().setInstructionView(null);
-        ViewRenderable.builder()
-                .setView(context, R.layout.activity_plato)
-                .build()
-                .thenAccept(renderable ->{
-                    ImageView imgView = (ImageView) renderable.getView();
-                    ImageDownloader imageDownloader = new ImageDownloader();
-                    try{
-                        Bitmap downloadedMonita = imageDownloader.execute(plateModel.getImagenPlatillo()).get();
-                        imgView.setImageBitmap(downloadedMonita);
-                        platilloR = renderable;
-                    }catch(Exception e){
-                        e.printStackTrace();
-                    }
-                })
-                .exceptionally(
-                        throwable -> {
-                            //toast
-                            return null;
-                        });
         arFragment.setOnTapArPlaneListener((HitResult hitResult, Plane plane, MotionEvent motionEvent) -> {
             if(platilloR == null){
                 return;
@@ -68,6 +39,37 @@ public class ArController {
             monachina.setRenderable(platilloR);
             monachina.select();
         });
+    }
+
+    public void setPlateModel(ArPlateModel plateModel) {
+        this.plateModel = plateModel;
+    }
+
+    public void draw() {
+        ViewRenderable.builder()
+                .setView(context, R.layout.plate_ar)
+                .build()
+                .thenAccept(renderable ->{
+                    ImageView imgView = (ImageView) renderable.getView();
+                    ImageDownloader imageDownloader = new ImageDownloader();
+                    try{
+                        Bitmap downloadedMonita = imageDownloader.execute(plateModel.getImagenPlatillo()).get();
+                        imgView.setImageBitmap(downloadedMonita);
+                        platilloR = renderable;
+                        Toast.makeText(context, "Image downloaded", Toast.LENGTH_SHORT).show();
+                    }catch(Exception e){
+                        e.printStackTrace();
+                    }
+                })
+                .exceptionally(
+                        throwable -> {
+                            Toast.makeText(context, "Error loading model", Toast.LENGTH_SHORT).show();
+                            return null;
+                        });
+    }
+
+    public void drawP(){
+
     }
 
     public void setContext(Context context1){

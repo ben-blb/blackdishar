@@ -55,7 +55,7 @@
         app:srcCompat="@drawable/ic_action_cancelar" />
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/addAr"
         android:layout_width="90dp"
         android:layout_height="90dp"
         android:layout_marginStart="15dp"
@@ -78,7 +78,7 @@
         app:layout_constraintBottom_toBottomOf="@+id/fragment"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button" />
+        app:layout_constraintTop_toBottomOf="@+id/addAr" />
 
     <TextView
         android:id="@+id/textView2"
