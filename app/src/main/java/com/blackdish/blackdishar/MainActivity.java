@@ -20,6 +20,7 @@ public class MainActivity extends AppCompatActivity {
         ArPlateModel arPlateModel = new ArPlateModel();
         arPlateModel.setImagenPlatillo("https://blackdish.mx/blackdish-beta-v3/backend/model/img_admin/IMG-5477-removebg-preview.png"); //por ahora usamos este como placeholder para hacer las pruebas del arController
         arController.setPlateModel(arPlateModel);
+        arController.setContext(this);
         arController.draw();
     }
 }
